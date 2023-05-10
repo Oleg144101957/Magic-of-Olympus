@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/splashFragment">
+
+    <fragment
+        android:id="@+id/splashFragment"
+        android:name="gtpay.gtronicspay.c.screens.SplashFragment"
+        android:label="fragment_splash"
+        tools:layout="@layout/fragment_splash" >
+        <action
+            android:id="@+id/action_splashFragment_to_gameActivity"
+            app:destination="@id/gameActivity" />
+        <action
+            android:id="@+id/action_splashFragment_to_containerFragment"
+            app:destination="@id/containerFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/containerFragment"
+        android:name="gtpay.gtronicspay.c.screens.ContainerFragment"
+        android:label="fragment_container"
+        tools:layout="@layout/fragment_container" />
+    <activity
+        android:id="@+id/gameActivity"
+        android:name="gtpay.gtronicspay.c.screens.GameActivity"
+        android:label="activity_game"
+        tools:layout="@layout/activity_game" />
+</navigation>
