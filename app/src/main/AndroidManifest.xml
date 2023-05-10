@@ -21,6 +21,8 @@
             android:exported="true" />
         <activity
             android:name=".screens.SplashActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:windowSoftInputMode="adjustResize"
             android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
