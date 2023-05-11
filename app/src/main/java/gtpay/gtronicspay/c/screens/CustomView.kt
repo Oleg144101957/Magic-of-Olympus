@@ -1,5 +1,6 @@
 package gtpay.gtronicspay.c.screens
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.net.Uri
 import android.os.Message
@@ -13,6 +14,7 @@ import androidx.activity.result.ActivityResultLauncher
 class CustomView(context: Context, val onFileChoose: OnFileChoose) : WebView(context) {
 
 
+    @SuppressLint("SetJavaScriptEnabled")
     fun startWeb(getContent: ActivityResultLauncher<String>){
         webViewClient = object : WebViewClient(){
             override fun onPageFinished(view: WebView?, url: String?) {

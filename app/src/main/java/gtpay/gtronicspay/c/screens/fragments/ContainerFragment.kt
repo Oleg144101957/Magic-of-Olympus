@@ -1,10 +1,9 @@
-package gtpay.gtronicspay.c.screens
+package gtpay.gtronicspay.c.screens.fragments
 
 import android.content.Context
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,48 +12,39 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.lifecycle.ViewModelProvider
 import com.android.installreferrer.api.InstallReferrerClient
 import com.android.installreferrer.api.InstallReferrerStateListener
-import gtpay.gtronicspay.c.R
 import gtpay.gtronicspay.c.databinding.FragmentContainerBinding
+import gtpay.gtronicspay.c.screens.CustomView
+import gtpay.gtronicspay.c.screens.OnFileChoose
 import gtpay.gtronicspay.c.viewmodel.ContainerViewModel
 
-class ContainerFragment : Fragment() {
+class ContainerFragment : FragmentBase<FragmentContainerBinding>() {
 
-    private lateinit var binding: FragmentContainerBinding
+    override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentContainerBinding
+        get() = FragmentContainerBinding::inflate
     private lateinit var vm: ContainerViewModel
     lateinit var chooseCallback: ValueCallback<Array<Uri?>>
     val getContent = registerForActivityResult(ActivityResultContracts.GetMultipleContents()) {
         chooseCallback.onReceiveValue(it.toTypedArray())
     }
 
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         vm = ViewModelProvider(this)[ContainerViewModel::class.java]
-        binding = FragmentContainerBinding.inflate(layoutInflater, container, false)
-
         refInstaller(requireContext())
+        //Observe link in Room, when it is ready call setView
+        setView("https://ru.imgbb.com/")
+    }
 
-        val web = CustomView(requireContext(), object : OnFileChoose{
+
+    private fun setView(url: String){
+        val web = CustomView(requireContext(), object : OnFileChoose {
             override fun onChooseCallbackActivated(paramChooseCallback: ValueCallback<Array<Uri?>>) {
                 chooseCallback = paramChooseCallback
             }
         })
-
-        web.loadUrl("http://google.com")
-        binding.frameLayoutContainer.addView(web)
+        web.loadUrl(url)
         web.startWeb(getContent)
-
-
-
-        //Build link
-        // create WebView object
-        //Put link in room
-        //Observe Room
-        // when link is ready load page, and show it
-        
-        return inflater.inflate(R.layout.fragment_container, container, false)
+        binding.root.addView(web)
     }
 
     private fun refInstaller(context: Context){

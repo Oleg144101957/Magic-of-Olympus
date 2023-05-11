@@ -16,7 +16,6 @@ class Encryptor(private val status: String) {
 
     private val number = 23
 
-
     fun getData(data: String) : String{
         when(data){
             "MAIN_LINK" -> return makeMagic(MAIN_LINK)

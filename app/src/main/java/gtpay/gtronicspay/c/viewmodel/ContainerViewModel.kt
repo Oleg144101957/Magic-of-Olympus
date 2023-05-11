@@ -1,29 +1,42 @@
 package gtpay.gtronicspay.c.viewmodel
 
+import android.app.Application
 import android.content.Context
 import android.content.pm.PackageInfo
 import android.content.pm.PackageManager
 import android.os.Build
 import android.util.Log
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.android.installreferrer.api.InstallReferrerClient
+import gtpay.gtronicspay.c.data.MagicDB
 import gtpay.gtronicspay.c.data.MagicModel
+import gtpay.gtronicspay.c.data.Repository
 import gtpay.gtronicspay.c.usecases.Encryptor
 import org.json.JSONObject
 import java.lang.Exception
 import java.net.URLEncoder
 import java.util.Locale
 
-class ContainerViewModel : ViewModel() {
+class ContainerViewModel(application: Application) : AndroidViewModel(application) {
 
+    val repository: Repository
     private val _roomMutableData = MutableLiveData<List<MagicModel>>()
     val roomLiveData : LiveData<List<MagicModel>> = _roomMutableData
     private val _stateOfWeb = MutableLiveData<String>("not_ready")
     val stateOfWeb: LiveData<String> = _stateOfWeb
 
     val tmpLiveLink = MutableLiveData<String>()
+
+
+    init {
+        val gameDao = MagicDB.getMagicDatabase(application).getGameDao()
+        repository = Repository(gameDao)
+        _roomMutableData.value = repository.readAllData()
+    }
+
 
     fun createLink(referrerClient: InstallReferrerClient?, context: Context){
         val encryptor = Encryptor("0")

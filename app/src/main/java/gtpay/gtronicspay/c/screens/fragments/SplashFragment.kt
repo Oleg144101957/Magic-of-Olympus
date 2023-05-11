@@ -1,8 +1,7 @@
-package gtpay.gtronicspay.c.screens
+package gtpay.gtronicspay.c.screens.fragments
 
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,20 +11,15 @@ import gtpay.gtronicspay.c.R
 import gtpay.gtronicspay.c.data.MagicDB
 import gtpay.gtronicspay.c.data.MagicModel
 import gtpay.gtronicspay.c.data.Repository
+import gtpay.gtronicspay.c.databinding.FragmentSplashBinding
 import gtpay.gtronicspay.c.usecases.AndroidChecker
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
-class SplashFragment : Fragment() {
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_splash, container, false)
-    }
+class SplashFragment : FragmentBase<FragmentSplashBinding>() {
+    override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentSplashBinding
+        get() = FragmentSplashBinding::inflate
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

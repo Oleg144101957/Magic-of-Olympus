@@ -1,4 +1,4 @@
-package gtpay.gtronicspay.c.screens
+package gtpay.gtronicspay.c.screens.activities
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity

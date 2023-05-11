@@ -1,13 +1,10 @@
-package gtpay.gtronicspay.c.screens
+package gtpay.gtronicspay.c.screens.activities
 
 import android.annotation.SuppressLint
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.provider.Settings
-import android.util.Log
 import gtpay.gtronicspay.c.R
 import gtpay.gtronicspay.c.databinding.ActivitySplashBinding
-import gtpay.gtronicspay.c.usecases.Encryptor
 
 @SuppressLint("CustomSplashScreen")
 class SplashActivity : AppCompatActivity() {
