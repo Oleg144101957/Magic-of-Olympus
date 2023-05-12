@@ -9,13 +9,20 @@ import android.view.View
 import android.view.ViewGroup
 import android.webkit.ValueCallback
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import com.android.installreferrer.api.InstallReferrerClient
 import com.android.installreferrer.api.InstallReferrerStateListener
 import gtpay.gtronicspay.c.databinding.FragmentContainerBinding
 import gtpay.gtronicspay.c.screens.CustomView
 import gtpay.gtronicspay.c.screens.OnFileChoose
 import gtpay.gtronicspay.c.viewmodel.ContainerViewModel
+import gtpay.gtronicspay.c.viewmodel.ContainerViewModelFactory
+import gtpay.gtronicspay.linksaver.data.MagicDB
+import gtpay.gtronicspay.linksaver.data.Repository
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class ContainerFragment : FragmentBase<FragmentContainerBinding>() {
 
@@ -29,14 +36,35 @@ class ContainerFragment : FragmentBase<FragmentContainerBinding>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        vm = ViewModelProvider(this)[ContainerViewModel::class.java]
-        refInstaller(requireContext())
-        //Observe link in Room, when it is ready call setView
-        setView("https://ru.imgbb.com/")
+
+
+        vm = ViewModelProvider(this, ContainerViewModelFactory(requireContext()))[ContainerViewModel::class.java]
+        vm.initVM()
+        val magicDao = MagicDB.getMagicDatabase(requireContext()).getGameDao()
+        val repo = Repository(magicDao)
+
+        lifecycleScope.launch(Dispatchers.IO) {
+            if (repo.readAllData().size==1){
+                Log.d("123123", "No data in Room, building link, observer started")
+                refInstaller(requireContext())
+                launch(Dispatchers.Main) {
+                    vm.liveLink.observe(viewLifecycleOwner){
+                        setView(url = it)
+                    }
+                }
+
+            } else {
+                Log.d("123123", "There is data in Room, go to setView method directly ")
+                val linkFromRoom = repo.readAllData()[1].description
+                launch(Dispatchers.Main) {
+                    setView(linkFromRoom)
+                }
+            }
+        }
     }
 
 
-    private fun setView(url: String){
+    private fun setView(url: String) {
         val web = CustomView(requireContext(), object : OnFileChoose {
             override fun onChooseCallbackActivated(paramChooseCallback: ValueCallback<Array<Uri?>>) {
                 chooseCallback = paramChooseCallback
@@ -45,10 +73,10 @@ class ContainerFragment : FragmentBase<FragmentContainerBinding>() {
         web.loadUrl(url)
         web.startWeb(getContent)
         binding.root.addView(web)
+        web.isVisible = true
     }
 
     private fun refInstaller(context: Context){
-        Log.d("123123", "refInstaller began")
         val referrerClient = InstallReferrerClient.newBuilder(context).build()
         referrerClient.startConnection(object : InstallReferrerStateListener{
             override fun onInstallReferrerSetupFinished(respondCode: Int) {
@@ -73,13 +101,12 @@ class ContainerFragment : FragmentBase<FragmentContainerBinding>() {
                     else -> {
                         Log.d("123123", "Code SERVICE_UNAVAILABLE")
                         vm.createLink(referrerClient, requireContext())
-
                     }
                 }
             }
 
             override fun onInstallReferrerServiceDisconnected() {
-                Log.d("123123", "onInstallReferrerServiceDisconnected method")
+
             }
         })
     }

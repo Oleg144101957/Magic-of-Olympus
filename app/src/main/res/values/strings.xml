@@ -2,4 +2,19 @@
     <string name="app_name">Magic of Olympus</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="gold_button">Gold Button</string>
+    <string name="x200">X200</string>
+    <string name="god">God</string>
+    <string name="golden_plate">Golden Plate</string>
+    <string name="coin">Coin</string>
+    <string name="golden_sun">Golden Sun</string>
+    <string name="magic_element">Magic Element</string>
+    <string name="ring">Ring</string>
+    <string name="button_choose">Button Choose</string>
+    <string name="you_can_make_x200_points_if_you_find_gold_combination">You can make X200 points if you find gold combination</string>
+    <string name="magic">magic</string>
+    <string name="triangle">triangle</string>
+    <string name="sun_of_gold">sun of gold</string>
+    <string name="button_back">Button Back</string>
+    <string name="select_good_combination_to_make_more_money">Select good combination to make more money</string>
 </resources>

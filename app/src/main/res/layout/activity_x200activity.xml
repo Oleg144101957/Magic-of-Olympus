@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg3"
+    tools:context=".screens.activities.X200activity">
+
+    <ImageView
+        android:id="@+id/btnBack"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:src="@drawable/baseline_arrow_back_24"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:contentDescription="@string/button_back" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/horizontalGuide"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.37"
+        android:layout_width="0dp"
+        android:layout_height="0dp"/>
+
+    <ImageView
+        android:id="@+id/elem1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/horizontalGuide"
+        app:layout_constraintEnd_toStartOf="@id/elem2"
+        android:src="@drawable/element_4_939"
+        android:contentDescription="@string/sun_of_gold" />
+
+    <ImageView
+        android:id="@+id/elem2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/element_5_939"
+        app:layout_constraintEnd_toStartOf="@id/elem3"
+        app:layout_constraintStart_toEndOf="@id/elem1"
+        app:layout_constraintBottom_toTopOf="@id/horizontalGuide"
+        android:contentDescription="@string/triangle" />
+
+    <ImageView
+        android:id="@+id/elem3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/element_6_939"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/elem2"
+        app:layout_constraintBottom_toTopOf="@id/horizontalGuide"
+        android:contentDescription="@string/magic" />
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="monospace"
+        android:padding="16dp"
+        android:text="@string/you_can_make_x200_points_if_you_find_gold_combination"
+        android:textColor="#000000"
+        android:textSize="32sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

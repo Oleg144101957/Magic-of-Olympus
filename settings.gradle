@@ -14,3 +14,4 @@ pluginManagement {
 //}
 rootProject.name = "Magic of Olympus"
 include ':app'
+include ':linksaver'

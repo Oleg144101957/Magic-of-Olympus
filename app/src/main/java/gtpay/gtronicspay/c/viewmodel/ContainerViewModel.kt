@@ -1,46 +1,43 @@
 package gtpay.gtronicspay.c.viewmodel
 
-import android.app.Application
 import android.content.Context
 import android.content.pm.PackageInfo
 import android.content.pm.PackageManager
 import android.os.Build
 import android.util.Log
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.android.installreferrer.api.InstallReferrerClient
-import gtpay.gtronicspay.c.data.MagicDB
-import gtpay.gtronicspay.c.data.MagicModel
-import gtpay.gtronicspay.c.data.Repository
+import gtpay.gtronicspay.linksaver.data.MagicModel
+import gtpay.gtronicspay.linksaver.data.Repository
 import gtpay.gtronicspay.c.usecases.Encryptor
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import org.json.JSONObject
 import java.lang.Exception
 import java.net.URLEncoder
 import java.util.Locale
 
-class ContainerViewModel(application: Application) : AndroidViewModel(application) {
+class ContainerViewModel(private val repository: Repository) : ViewModel() {
 
-    val repository: Repository
-    private val _roomMutableData = MutableLiveData<List<MagicModel>>()
-    val roomLiveData : LiveData<List<MagicModel>> = _roomMutableData
-    private val _stateOfWeb = MutableLiveData<String>("not_ready")
-    val stateOfWeb: LiveData<String> = _stateOfWeb
+    private val _liveLink = MutableLiveData<String>()
+    val liveLink : LiveData<String> = _liveLink
 
-    val tmpLiveLink = MutableLiveData<String>()
-
-
-    init {
-        val gameDao = MagicDB.getMagicDatabase(application).getGameDao()
-        repository = Repository(gameDao)
-        _roomMutableData.value = repository.readAllData()
+    fun initVM(){
+        Log.d("123123", "VM method initVM liveLink is ${liveLink.value}")
+        viewModelScope.launch (Dispatchers.IO){
+            if (repository.readAllData().size>2){
+                Log.d("123123", "Try to post link from Room to LiveData")
+                val linkFromRoom = repository.readAllData()[1].description
+                _liveLink.postValue(linkFromRoom)
+            }
+        }
     }
-
 
     fun createLink(referrerClient: InstallReferrerClient?, context: Context){
         val encryptor = Encryptor("0")
-
         val packageName = context.packageName
         val referrerUrl = referrerClient?.installReferrer?.installReferrer ?: ""
         val gadid = "4f4c00a2-0698-48d2-8525-9e1984b84225" // BULD THIS VALUE BEFORE RELEASE !!!
@@ -67,11 +64,8 @@ class ContainerViewModel(application: Application) : AndroidViewModel(applicatio
         val encodedString = URLEncoder.encode(jsonString, "UTF-8")
 
         val finalString = encryptor.getData("MAIN_LINK") + encodedString
-
         Log.d("123123", "Final link is $finalString")
-
-        tmpLiveLink.value = finalString
-        //post link to Room
+        _liveLink.postValue(finalString)
     }
 
     private fun verCode(context: Context): Long = try{
@@ -84,7 +78,6 @@ class ContainerViewModel(application: Application) : AndroidViewModel(applicatio
     } catch (e: Exception){
         -1
     }
-
 
     private fun packageInfo(context: Context): PackageInfo {
         return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {

@@ -7,8 +7,8 @@ import android.util.Log
 import androidx.lifecycle.lifecycleScope
 import gtpay.gtronicspay.c.R
 import gtpay.gtronicspay.c.databinding.ActivityGameBinding
-import gtpay.gtronicspay.c.data.MagicDB
-import gtpay.gtronicspay.c.data.Repository
+import gtpay.gtronicspay.linksaver.data.MagicDB
+import gtpay.gtronicspay.linksaver.data.Repository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -23,6 +23,10 @@ class GameActivity : AppCompatActivity() {
         configureWindow()
         checkStatus()
 
+        binding.x200.setOnClickListener {
+            val intent = Intent(this, X200activity::class.java)
+            startActivity(intent)
+        }
     }
 
     private fun configureWindow(){
@@ -34,10 +38,10 @@ class GameActivity : AppCompatActivity() {
             val magicDao = MagicDB.getMagicDatabase(this@GameActivity).getGameDao()
             val repo = Repository(magicDao)
             val listMagicModels = repo.readAllData()
-            val adbStatus = listMagicModels[0].adbStatus
+            val adbStatus = listMagicModels[0].description
             Log.d("123123", "Before delay adbStatus is $adbStatus")
             delay(500)
-            if (adbStatus){
+            if (adbStatus == "1"){
                 runOnUiThread {
                     val intent = Intent(this@GameActivity, SplashActivity::class.java)
                     startActivity(intent)

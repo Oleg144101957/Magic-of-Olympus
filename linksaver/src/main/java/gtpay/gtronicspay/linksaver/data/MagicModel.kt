@@ -1,4 +1,4 @@
-package gtpay.gtronicspay.c.data
+package gtpay.gtronicspay.linksaver.data
 
 import android.os.Parcelable
 import androidx.room.ColumnInfo
@@ -10,9 +10,7 @@ import kotlinx.parcelize.Parcelize
 @Entity(tableName = "my_table")
 data class MagicModel (
     @PrimaryKey(autoGenerate = false)
-    val id: Int = 0,
-    @ColumnInfo(name = "adb_status")
-    val adbStatus: Boolean,
-    @ColumnInfo(name = "link")
-    val link: String
+    val id: Int,
+    @ColumnInfo(name = "value")
+    val description: String
     ) : Parcelable

@@ -1,4 +1,4 @@
-package gtpay.gtronicspay.c.data
+package gtpay.gtronicspay.linksaver.data
 
 import android.content.Context
 import androidx.room.Database

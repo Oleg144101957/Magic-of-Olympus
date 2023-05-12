@@ -9,15 +9,6 @@
     android:id="@+id/frameLayoutContainer"
     tools:context=".screens.fragments.ContainerFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:id="@+id/tvField"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:textSize="32sp"
-        android:text="WebView Container" />
-
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/progress_bar"
         android:layout_width="wrap_content"
