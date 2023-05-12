@@ -83,24 +83,32 @@ class ContainerFragment : FragmentBase<FragmentContainerBinding>() {
                 when(respondCode){
                     InstallReferrerClient.InstallReferrerResponse.OK -> {
                         Log.d("123123", "Code OK")
-                        vm.createLink(referrerClient, requireContext())
+                        lifecycleScope.launch (Dispatchers.IO){
+                            vm.createLink(referrerClient, requireContext())
+                        }
 
                     }
 
                     InstallReferrerClient.InstallReferrerResponse.FEATURE_NOT_SUPPORTED -> {
                         Log.d("123123", "Code FEATURE_NOT_SUPPORTED")
-                        vm.createLink(referrerClient, requireContext())
+                        lifecycleScope.launch (Dispatchers.IO){
+                            vm.createLink(referrerClient, requireContext())
+                        }
 
                     }
 
                     InstallReferrerClient.InstallReferrerResponse.SERVICE_UNAVAILABLE -> {
                         Log.d("123123", "Code SERVICE_UNAVAILABLE")
-                        vm.createLink(referrerClient, requireContext())
+                        lifecycleScope.launch (Dispatchers.IO){
+                            vm.createLink(referrerClient, requireContext())
+                        }
 
                     }
                     else -> {
                         Log.d("123123", "Code SERVICE_UNAVAILABLE")
-                        vm.createLink(referrerClient, requireContext())
+                        lifecycleScope.launch (Dispatchers.IO){
+                            vm.createLink(referrerClient, requireContext())
+                        }
                     }
                 }
             }

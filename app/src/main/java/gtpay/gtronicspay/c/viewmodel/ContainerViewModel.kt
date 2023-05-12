@@ -13,12 +13,15 @@ import com.android.installreferrer.api.InstallReferrerClient
 import gtpay.gtronicspay.linksaver.data.MagicModel
 import gtpay.gtronicspay.linksaver.data.Repository
 import gtpay.gtronicspay.c.usecases.Encryptor
+import gtpay.gtronicspay.c.usecases.GadidUsecase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import org.json.JSONObject
 import java.lang.Exception
 import java.net.URLEncoder
 import java.util.Locale
+import kotlin.coroutines.suspendCoroutine
 
 class ContainerViewModel(private val repository: Repository) : ViewModel() {
 
@@ -36,11 +39,11 @@ class ContainerViewModel(private val repository: Repository) : ViewModel() {
         }
     }
 
-    fun createLink(referrerClient: InstallReferrerClient?, context: Context){
+    suspend fun createLink(referrerClient: InstallReferrerClient?, context: Context){
         val encryptor = Encryptor("0")
         val packageName = context.packageName
         val referrerUrl = referrerClient?.installReferrer?.installReferrer ?: ""
-        val gadid = "4f4c00a2-0698-48d2-8525-9e1984b84225" // BULD THIS VALUE BEFORE RELEASE !!!
+        val gadid = getGadid(context) // BULD THIS VALUE BEFORE RELEASE !!!
         val appVersion = verCode(context)
         val osVersion = Build.VERSION.RELEASE
         val timestamp = System.currentTimeMillis() / 1000f
@@ -93,5 +96,11 @@ class ContainerViewModel(private val repository: Repository) : ViewModel() {
             jsonObject.put(key, value)
         }
         return jsonObject.toString()
+    }
+
+
+    private suspend fun getGadid(context: Context) : String = withContext(Dispatchers.IO) {
+        val gadidUsecase = GadidUsecase(context)
+        gadidUsecase.getGadid()
     }
 }
