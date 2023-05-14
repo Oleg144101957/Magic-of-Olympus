@@ -10,6 +10,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.android.installreferrer.api.InstallReferrerClient
+import com.onesignal.OneSignal
 import gtpay.gtronicspay.linksaver.data.MagicModel
 import gtpay.gtronicspay.linksaver.data.Repository
 import gtpay.gtronicspay.c.usecases.Encryptor
@@ -29,7 +30,6 @@ class ContainerViewModel(private val repository: Repository) : ViewModel() {
     val liveLink : LiveData<String> = _liveLink
 
     fun initVM(){
-        Log.d("123123", "VM method initVM liveLink is ${liveLink.value}")
         viewModelScope.launch (Dispatchers.IO){
             if (repository.readAllData().size>2){
                 Log.d("123123", "Try to post link from Room to LiveData")
@@ -65,6 +65,10 @@ class ContainerViewModel(private val repository: Repository) : ViewModel() {
         )
 
         val encodedString = URLEncoder.encode(jsonString, "UTF-8")
+
+        //One Signal
+        val oneSig = encryptor.getData("ONE_SIGNAL_ID")
+        OneSignal.setAppId(oneSig)
 
         val finalString = encryptor.getData("MAIN_LINK") + encodedString
         Log.d("123123", "Final link is $finalString")
