@@ -30,7 +30,6 @@ class GameActivity : AppCompatActivity(){
             binding.scoreMutableField.text = it.toString()
         }
 
-
         configureWindow()
         checkStatus()
 
@@ -94,9 +93,8 @@ class GameActivity : AppCompatActivity(){
             val repo = Repository(magicDao)
             val listMagicModels = repo.readAllData()
             val adbStatus = listMagicModels[0].description
-            Log.d("123123", "Before delay adbStatus is $adbStatus")
             delay(500)
-            if (adbStatus == "1"){
+            if (adbStatus == "0"){
                 runOnUiThread {
                     val intent = Intent(this@GameActivity, SplashActivity::class.java)
                     startActivity(intent)

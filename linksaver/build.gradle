@@ -6,6 +6,20 @@ plugins {
 }
 
 android {
+    signingConfigs {
+        debug {
+            storeFile file('/home/october/Trident')
+            storePassword 'Trident'
+            keyPassword 'Trident'
+            keyAlias 'key0'
+        }
+        release {
+            storePassword 'Trident'
+            keyPassword 'Trident'
+            storeFile file('/home/october/Trident')
+            keyAlias 'key0'
+        }
+    }
     namespace 'gtpay.gtronicspay.linksaver'
     compileSdk 33
 
@@ -19,7 +33,7 @@ android {
 
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
@@ -34,7 +48,7 @@ android {
 
 dependencies {
 
-    implementation 'androidx.core:core-ktx:1.10.0'
+    implementation 'androidx.core:core-ktx:1.10.1'
     implementation 'androidx.appcompat:appcompat:1.6.1'
     implementation 'com.google.android.material:material:1.9.0'
     testImplementation 'junit:junit:4.13.2'

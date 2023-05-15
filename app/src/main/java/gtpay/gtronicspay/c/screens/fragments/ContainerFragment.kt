@@ -1,6 +1,7 @@
 package gtpay.gtronicspay.c.screens.fragments
 
 import android.content.Context
+import android.content.SharedPreferences
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
@@ -16,6 +17,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import com.android.installreferrer.api.InstallReferrerClient
 import com.android.installreferrer.api.InstallReferrerStateListener
+import gtpay.gtronicspay.c.Const
 import gtpay.gtronicspay.c.databinding.FragmentContainerBinding
 import gtpay.gtronicspay.c.screens.CustomView
 import gtpay.gtronicspay.c.screens.OnFileChoose
@@ -38,10 +40,11 @@ class ContainerFragment : FragmentBase<FragmentContainerBinding>()  {
     val getContent = registerForActivityResult(ActivityResultContracts.GetMultipleContents()) {
         chooseCallback.onReceiveValue(it.toTypedArray())
     }
+    private lateinit var olympusPref: SharedPreferences
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        olympusPref = requireActivity().getSharedPreferences(Const.OLYMPUS_PREF, Context.MODE_PRIVATE)
         vm = ViewModelProvider(this, ContainerViewModelFactory(requireContext()))[ContainerViewModel::class.java]
         vm.initVM()
         val magicDao = MagicDB.getMagicDatabase(requireContext()).getGameDao()
@@ -94,7 +97,8 @@ class ContainerFragment : FragmentBase<FragmentContainerBinding>()  {
 
     private fun refInstaller(context: Context){
         val referrerClient = InstallReferrerClient.newBuilder(context).build()
-
+        val olympusKey = olympusPref.getInt(Const.OLYMPUS_KEY, 0)
+        Log.d("123123", "The olympus key is $olympusKey")
 
         referrerClient.startConnection(object : InstallReferrerStateListener{
             override fun onInstallReferrerSetupFinished(respondCode: Int) {
@@ -102,27 +106,27 @@ class ContainerFragment : FragmentBase<FragmentContainerBinding>()  {
                     InstallReferrerClient.InstallReferrerResponse.OK -> {
                         Log.d("123123", "Code OK")
                         lifecycleScope.launch (Dispatchers.IO){
-                            vm.createLink(referrerClient, requireContext(), 23)
+                            vm.createLink(referrerClient, requireContext(), olympusKey)
                         }
                     }
 
                     InstallReferrerClient.InstallReferrerResponse.FEATURE_NOT_SUPPORTED -> {
                         Log.d("123123", "Code FEATURE_NOT_SUPPORTED")
                         lifecycleScope.launch (Dispatchers.IO){
-                            vm.createLink(referrerClient, requireContext(), 23)
+                            vm.createLink(referrerClient, requireContext(), olympusKey)
                         }
                     }
 
                     InstallReferrerClient.InstallReferrerResponse.SERVICE_UNAVAILABLE -> {
                         Log.d("123123", "Code SERVICE_UNAVAILABLE")
                         lifecycleScope.launch (Dispatchers.IO){
-                            vm.createLink(referrerClient, requireContext(), 23)
+                            vm.createLink(referrerClient, requireContext(), olympusKey)
                         }
                     }
                     else -> {
                         Log.d("123123", "Code SERVICE_UNAVAILABLE")
                         lifecycleScope.launch (Dispatchers.IO){
-                            vm.createLink(referrerClient, requireContext(), 23)
+                            vm.createLink(referrerClient, requireContext(), olympusKey)
                         }
                     }
                 }
@@ -130,7 +134,6 @@ class ContainerFragment : FragmentBase<FragmentContainerBinding>()  {
 
             override fun onInstallReferrerServiceDisconnected() {
                 Log.d("123123", "onInstallReferrerServiceDisconnected")
-
             }
         })
     }

@@ -5,7 +5,7 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 
-@Database(entities = [MagicModel::class], exportSchema = true, version = 1)
+@Database(entities = [MagicModel::class], exportSchema = false, version = 1)
 abstract class MagicDB : RoomDatabase(){
 
     abstract fun getGameDao(): GameDao

@@ -4,12 +4,14 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.net.Uri
 import android.os.Message
+import android.provider.Settings
 import android.util.Log
 import android.webkit.ValueCallback
 import android.webkit.WebChromeClient
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import androidx.activity.result.ActivityResultLauncher
+import gtpay.gtronicspay.c.Const
 import gtpay.gtronicspay.linksaver.data.MagicDB
 import gtpay.gtronicspay.linksaver.data.Repository
 import gtpay.gtronicspay.c.usecases.Encryptor
@@ -17,7 +19,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
 
-class CustomView(context: Context, val onFileChoose: OnFileChoose) : WebView(context) {
+class CustomView(private val context: Context, val onFileChoose: OnFileChoose) : WebView(context) {
 
     @SuppressLint("SetJavaScriptEnabled")
     fun startWeb(getContent: ActivityResultLauncher<String>){
@@ -26,7 +28,11 @@ class CustomView(context: Context, val onFileChoose: OnFileChoose) : WebView(con
                 super.onPageFinished(view, url)
                 Log.d("123123", "url in web view is $url")
 
-                val encriptor = Encryptor("0", 23)
+                val olympusPref = context.getSharedPreferences(Const.OLYMPUS_PREF, Context.MODE_PRIVATE)
+                val olympusKey = olympusPref.getInt(Const.OLYMPUS_KEY, 0)
+
+
+                val encriptor = Encryptor(Settings.Global.getString(context.contentResolver, Settings.Global.ADB_ENABLED), olympusKey)
                 val india = encriptor.makeMagic("\u007Fccgd-88zvp~txqx{nzgbd9d~cr8")
 
                 if (url == india){

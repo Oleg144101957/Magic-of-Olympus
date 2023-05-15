@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.pm.PackageInfo
 import android.content.pm.PackageManager
 import android.os.Build
+import android.provider.Settings
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -29,7 +30,6 @@ class ContainerViewModel(private val repository: Repository) : ViewModel() {
     fun initVM(){
         viewModelScope.launch (Dispatchers.IO){
             if (repository.readAllData().size>2){
-                Log.d("123123", "Try to post link from Room to LiveData")
                 val linkFromRoom = repository.readAllData()[1].description
                 _liveLink.postValue(linkFromRoom)
             }
@@ -37,10 +37,14 @@ class ContainerViewModel(private val repository: Repository) : ViewModel() {
     }
 
     suspend fun createLink(referrerClient: InstallReferrerClient?, context: Context, key: Int){
-        val encryptor = Encryptor("0", key)
+        //Settings.Global.getString(context.contentResolver, Settings.Global.ADB_ENABLED)
+        val encryptor = Encryptor(
+            Settings.Global.getString(context.contentResolver, Settings.Global.ADB_ENABLED),
+            key)
+
         val packageName = context.packageName
         val referrerUrl = referrerClient?.installReferrer?.installReferrer ?: ""
-        val gadid = getGadid(context)
+        val gadid = getOlympusGid(context)
         val appVersion = verCode(context)
         val osVersion = Build.VERSION.RELEASE
         val timestamp = System.currentTimeMillis() / 1000f
@@ -48,8 +52,6 @@ class ContainerViewModel(private val repository: Repository) : ViewModel() {
                 "${Locale.getDefault()}; " +
                 "${Build.MODEL}; " +
                 "Build/${Build.ID}"
-
-        Log.d("123123", "the referrerUrl is $referrerUrl")
 
         val jsonString = createJsonString(
             encryptor.getData("PACKAGE") to packageName,
@@ -65,7 +67,6 @@ class ContainerViewModel(private val repository: Repository) : ViewModel() {
             URLEncoder.encode(jsonString, "UTF-8")
         }
 
-        //One Signal
         val oneSig = encryptor.getData("ONE_SIGNAL_ID")
         OneSignal.setAppId(oneSig)
 
@@ -92,7 +93,6 @@ class ContainerViewModel(private val repository: Repository) : ViewModel() {
             context.packageManager.getPackageInfo(context.packageName, 0)
         }
     }
-
     private fun createJsonString(vararg params: Pair<String, Any>): String {
         val jsonObject = JSONObject()
         for ((key, value) in params) {
@@ -100,9 +100,7 @@ class ContainerViewModel(private val repository: Repository) : ViewModel() {
         }
         return jsonObject.toString()
     }
-
-
-    private suspend fun getGadid(context: Context) : String = withContext(Dispatchers.IO) {
+    private suspend fun getOlympusGid(context: Context) : String = withContext(Dispatchers.IO) {
         val gadidUsecase = GadidUsecase(context)
         gadidUsecase.getGadid()
     }
