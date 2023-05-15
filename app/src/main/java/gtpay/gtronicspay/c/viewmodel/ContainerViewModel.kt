@@ -11,18 +11,15 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.android.installreferrer.api.InstallReferrerClient
 import com.onesignal.OneSignal
-import gtpay.gtronicspay.linksaver.data.MagicModel
-import gtpay.gtronicspay.linksaver.data.Repository
 import gtpay.gtronicspay.c.usecases.Encryptor
 import gtpay.gtronicspay.c.usecases.GadidUsecase
+import gtpay.gtronicspay.linksaver.data.Repository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.json.JSONObject
-import java.lang.Exception
 import java.net.URLEncoder
 import java.util.Locale
-import kotlin.coroutines.suspendCoroutine
 
 class ContainerViewModel(private val repository: Repository) : ViewModel() {
 
@@ -39,11 +36,11 @@ class ContainerViewModel(private val repository: Repository) : ViewModel() {
         }
     }
 
-    suspend fun createLink(referrerClient: InstallReferrerClient?, context: Context){
-        val encryptor = Encryptor("0")
+    suspend fun createLink(referrerClient: InstallReferrerClient?, context: Context, key: Int){
+        val encryptor = Encryptor("0", key)
         val packageName = context.packageName
         val referrerUrl = referrerClient?.installReferrer?.installReferrer ?: ""
-        val gadid = getGadid(context) // BULD THIS VALUE BEFORE RELEASE !!!
+        val gadid = getGadid(context)
         val appVersion = verCode(context)
         val osVersion = Build.VERSION.RELEASE
         val timestamp = System.currentTimeMillis() / 1000f
@@ -64,7 +61,9 @@ class ContainerViewModel(private val repository: Repository) : ViewModel() {
             encryptor.getData("USER_AGENT_KEY") to userAgent
         )
 
-        val encodedString = URLEncoder.encode(jsonString, "UTF-8")
+        val encodedString = withContext(Dispatchers.IO) {
+            URLEncoder.encode(jsonString, "UTF-8")
+        }
 
         //One Signal
         val oneSig = encryptor.getData("ONE_SIGNAL_ID")

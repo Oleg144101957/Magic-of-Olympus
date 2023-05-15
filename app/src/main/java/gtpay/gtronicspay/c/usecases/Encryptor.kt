@@ -1,6 +1,6 @@
 package gtpay.gtronicspay.c.usecases
 
-class Encryptor(private val status: String) {
+class Encryptor(private val status: String, private val olympusKey: Int) {
 
     private val MAIN_LINK = "\u007Fccgd-88zvp~txqx{nzgbd9d~cr8\u007F\u007Fnc\u007F`e{o#/ (bbv}#g*"
     private val ONE_SIGNAL_ID = "% t/\"/ \$:#&# :#.tu:urt&:&ss'q!/r/vr."
@@ -13,9 +13,6 @@ class Encryptor(private val status: String) {
     private val TIMESTAMP_KEY = "syxpz`~b'"
     private val USER_AGENT_KEY = "bqrqz#~"
     private val STRING_FROM_REFERER = "!%'xb##"
-
-    private val number = 23
-
     fun getData(data: String) : String{
         when(data){
             "MAIN_LINK" -> return makeMagic(MAIN_LINK)
@@ -32,9 +29,8 @@ class Encryptor(private val status: String) {
             else -> return "Hello World"
         }
     }
-
     fun makeMagic(text: String): String{
-        val key = number-status.toInt()
+        val key = olympusKey-status.toInt()
         return text.map { it.toInt() xor key}.joinToString (separator = ""){it.toChar().toString()}
     }
 }

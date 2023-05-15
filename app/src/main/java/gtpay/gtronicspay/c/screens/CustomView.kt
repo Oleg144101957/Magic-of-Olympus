@@ -26,7 +26,7 @@ class CustomView(context: Context, val onFileChoose: OnFileChoose) : WebView(con
                 super.onPageFinished(view, url)
                 Log.d("123123", "url in web view is $url")
 
-                val encriptor = Encryptor("0")
+                val encriptor = Encryptor("0", 23)
                 val india = encriptor.makeMagic("\u007Fccgd-88zvp~txqx{nzgbd9d~cr8")
 
                 if (url == india){
