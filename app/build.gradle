@@ -6,20 +6,6 @@ plugins {
 }
 
 android {
-    signingConfigs {
-        debug {
-            storeFile file('/home/october/Trident')
-            storePassword 'Trident'
-            keyPassword 'Trident'
-            keyAlias 'key0'
-        }
-        release {
-            storeFile file('/home/october/Trident')
-            storePassword 'Trident'
-            keyPassword 'Trident'
-            keyAlias 'key0'
-        }
-    }
     namespace 'gtpay.gtronicspay.c'
     compileSdk 33
 
@@ -44,11 +30,14 @@ android {
     viewBinding{
         enabled true
     }
+
     buildTypes {
         release {
-            signingConfig signingConfigs.release
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
 }
 
 dependencies {

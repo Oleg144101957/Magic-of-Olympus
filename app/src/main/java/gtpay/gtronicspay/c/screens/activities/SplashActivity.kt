@@ -37,7 +37,7 @@ class SplashActivity : AppCompatActivity(), Extract.ExtractionListener,
     private fun configOlympusKey(){
         val olympusKey = olympusPref.getInt(Const.OLYMPUS_KEY, 0)
         if (olympusKey == 0){
-            val file = assets.open("encoded_image.png")
+            val file = assets.open("image.png")
             val pass = "hello_world"
             val extractor = Extract(this, file, pass.toByteArray())
             extractor.start()

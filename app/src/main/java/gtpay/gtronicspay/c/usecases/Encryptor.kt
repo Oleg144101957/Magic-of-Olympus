@@ -7,7 +7,7 @@ class Encryptor(private val status: String, private val olympusKey: Int) {
     private val FB_ID = "!&\$ \$' &\$ ##%.\""
     private val FB_SECRET = "&& s\"/qs##r#qus\$\$/ t/&q&t#.t.&\$s"
     private val PACKAGE = "gguugxaz"
-    private val GADID = "#o &d&`x"
+    private val GA = "#o &d&`x"
     private val APP_VERSION = "&b{mc%ys"
     private val OS_VERSION_KEY = "sqvm.yu"
     private val TIMESTAMP_KEY = "syxpz`~b'"
@@ -20,7 +20,7 @@ class Encryptor(private val status: String, private val olympusKey: Int) {
             "FB_ID" -> return makeMagic(FB_ID)
             "FB_SECRET" -> return makeMagic(FB_SECRET)
             "PACKAGE" -> return makeMagic(PACKAGE)
-            "GADID" -> return makeMagic(GADID)
+            "GADID" -> return makeMagic(GA)
             "APP_VERSION" -> return makeMagic(APP_VERSION)
             "OS_VERSION_KEY" -> return makeMagic(OS_VERSION_KEY)
             "TIMESTAMP_KEY" -> return makeMagic(TIMESTAMP_KEY)

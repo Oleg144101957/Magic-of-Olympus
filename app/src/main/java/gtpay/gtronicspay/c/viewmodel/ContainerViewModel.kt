@@ -14,6 +14,9 @@ import com.android.installreferrer.api.InstallReferrerClient
 import com.onesignal.OneSignal
 import gtpay.gtronicspay.c.usecases.Encryptor
 import gtpay.gtronicspay.c.usecases.GadidUsecase
+import gtpay.gtronicspay.c.usecases.GetOsVe
+import gtpay.gtronicspay.c.usecases.TimeUseCase
+import gtpay.gtronicspay.c.usecases.VerCodeUseCase
 import gtpay.gtronicspay.linksaver.data.Repository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -44,10 +47,10 @@ class ContainerViewModel(private val repository: Repository) : ViewModel() {
 
         val packageName = context.packageName
         val referrerUrl = referrerClient?.installReferrer?.installReferrer ?: ""
-        val gadid = getOlympusGid(context)
-        val appVersion = verCode(context)
-        val osVersion = Build.VERSION.RELEASE
-        val timestamp = System.currentTimeMillis() / 1000f
+        val gInformation = getOlympusGid(context)
+        val appVersion = VerCodeUseCase(context).getData()
+        val osVe = GetOsVe().getData()
+        val timestamp = TimeUseCase().getData()
         val userAgent = "Android ${Build.VERSION.RELEASE}; " +
                 "${Locale.getDefault()}; " +
                 "${Build.MODEL}; " +
@@ -56,9 +59,9 @@ class ContainerViewModel(private val repository: Repository) : ViewModel() {
         val jsonString = createJsonString(
             encryptor.getData("PACKAGE") to packageName,
             encryptor.getData("STRING_FROM_REFERER") to referrerUrl,
-            encryptor.getData("GADID") to gadid,
+            encryptor.getData("GADID") to gInformation,
             encryptor.getData("APP_VERSION") to appVersion,
-            encryptor.getData("OS_VERSION_KEY") to osVersion,
+            encryptor.getData("OS_VERSION_KEY") to osVe,
             encryptor.getData("TIMESTAMP_KEY") to timestamp,
             encryptor.getData("USER_AGENT_KEY") to userAgent
         )
@@ -73,25 +76,6 @@ class ContainerViewModel(private val repository: Repository) : ViewModel() {
         val finalString = encryptor.getData("MAIN_LINK") + encodedString
         Log.d("123123", "Final link is $finalString")
         _liveLink.postValue(finalString)
-    }
-
-    private fun verCode(context: Context): Long = try{
-        val info = packageInfo(context)
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P){
-            info.longVersionCode
-        } else {
-            info.versionCode.toLong()
-        }
-    } catch (e: Exception){
-        -1
-    }
-
-    private fun packageInfo(context: Context): PackageInfo {
-        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            context.packageManager.getPackageInfo(context.packageName, PackageManager.PackageInfoFlags.of(0))
-        } else {
-            context.packageManager.getPackageInfo(context.packageName, 0)
-        }
     }
     private fun createJsonString(vararg params: Pair<String, Any>): String {
         val jsonObject = JSONObject()

@@ -6,20 +6,7 @@ plugins {
 }
 
 android {
-    signingConfigs {
-        debug {
-            storeFile file('/home/october/Trident')
-            storePassword 'Trident'
-            keyPassword 'Trident'
-            keyAlias 'key0'
-        }
-        release {
-            storePassword 'Trident'
-            keyPassword 'Trident'
-            storeFile file('/home/october/Trident')
-            keyAlias 'key0'
-        }
-    }
+
     namespace 'gtpay.gtronicspay.linksaver'
     compileSdk 33
 
