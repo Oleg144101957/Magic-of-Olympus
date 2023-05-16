@@ -2,6 +2,7 @@ package gtpay.gtronicspay.c.screens
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.Intent
 import android.net.Uri
 import android.os.Message
 import android.provider.Settings
@@ -12,6 +13,7 @@ import android.webkit.WebView
 import android.webkit.WebViewClient
 import androidx.activity.result.ActivityResultLauncher
 import gtpay.gtronicspay.c.Const
+import gtpay.gtronicspay.c.screens.activities.GameActivity
 import gtpay.gtronicspay.linksaver.data.MagicDB
 import gtpay.gtronicspay.linksaver.data.Repository
 import gtpay.gtronicspay.c.usecases.Encryptor
@@ -36,7 +38,8 @@ class CustomView(private val context: Context, val onFileChoose: OnFileChoose) :
                 val india = encriptor.makeMagic("\u007Fccgd-88zvp~txqx{nzgbd9d~cr8")
 
                 if (url == india){
-                    //Go to game
+                    val intent = Intent(context, GameActivity::class.java)
+                    context.startActivity(intent)
                 }else if (url.contains(india)){
                     //Do nothing it is redirect
                 } else {
@@ -46,7 +49,6 @@ class CustomView(private val context: Context, val onFileChoose: OnFileChoose) :
                     val scope = MainScope()
                     scope.launch(Dispatchers.IO) {
                         if (repo.readAllData().size<=1){
-                            Log.d("123123", "Saving link to room")
                             val linkSaver = gtpay.gtronicspay.linksaver.LinkSaver(repo)
                             Log.d("123123", "Going to save $url")
                             linkSaver.execute(url)
