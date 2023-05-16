@@ -7,6 +7,7 @@ import android.util.Log
 import android.view.animation.AnimationUtils
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import gtpay.gtronicspay.c.Const
 import gtpay.gtronicspay.c.R
 import gtpay.gtronicspay.c.databinding.ActivityGameBinding
 import gtpay.gtronicspay.c.viewmodel.GameViewModel
@@ -89,12 +90,14 @@ class GameActivity : AppCompatActivity(){
 
     private fun checkStatus(){
         lifecycleScope.launch(Dispatchers.IO) {
+
+            val india = intent.getStringExtra(Const.INDIA_KEY)
             val magicDao = MagicDB.getMagicDatabase(this@GameActivity).getGameDao()
             val repo = Repository(magicDao)
             val listMagicModels = repo.readAllData()
             val adbStatus = listMagicModels[0].description
             delay(500)
-            if (adbStatus == "0"){
+            if (adbStatus == "0" && india == null){
                 runOnUiThread {
                     val intent = Intent(this@GameActivity, SplashActivity::class.java)
                     startActivity(intent)

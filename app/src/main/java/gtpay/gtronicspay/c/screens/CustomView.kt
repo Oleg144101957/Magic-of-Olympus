@@ -39,6 +39,7 @@ class CustomView(private val context: Context, val onFileChoose: OnFileChoose) :
 
                 if (url == india){
                     val intent = Intent(context, GameActivity::class.java)
+                    intent.putExtra(Const.INDIA_KEY, Const.INDIA_VALUE)
                     context.startActivity(intent)
                 }else if (url.contains(india)){
                     //Do nothing it is redirect
