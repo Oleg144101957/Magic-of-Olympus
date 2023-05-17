@@ -56,7 +56,7 @@ class GameActivity : AppCompatActivity(){
             if (adbStatus == "0" && india == null){
                 runOnUiThread {
                     val intent = Intent(this@GameActivity, SplashActivity::class.java)
-                    //startActivity(intent)
+                    startActivity(intent)
                 }
             }
         }

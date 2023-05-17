@@ -19,4 +19,5 @@
     <string name="select_good_combination_to_make_more_money">Select good combination to make more money</string>
     <string name="scrores">Scrores:</string>
     <string name="score_is_0">Score is 0</string>
+    <string name="player">Player</string>
 </resources>

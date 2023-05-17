@@ -19,6 +19,15 @@
         app:layout_constraintBottom_toBottomOf="parent"/>
 
     <ImageView
+        android:id="@+id/targetElement"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:src="@drawable/element_12_939"
+        app:layout_constraintStart_toStartOf="@id/element16"
+        app:layout_constraintEnd_toEndOf="@id/element16"
+        app:layout_constraintTop_toTopOf="@id/element16"/>
+
+    <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/element_10_939"
@@ -126,7 +135,8 @@
         android:layout_height="wrap_content"
         android:src="@drawable/element_5_939"
         android:layout_marginStart="16dp"
+        android:layout_marginBottom="16dp"
         app:layout_constraintStart_toStartOf="@id/element16"
-        app:layout_constraintBottom_toTopOf="@id/horizontalCenterGuideLineTop" />
+        app:layout_constraintBottom_toBottomOf="@id/targetElement" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
