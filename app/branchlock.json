@@ -1,0 +1,88 @@
+{
+    "android": true,
+    "name_generation_mode": "ADAPTIVE",
+    "exclude_libs": true,
+    "no_compress": false,
+    "no_watermark": false,
+    "remove_empty_directories": false,
+    "exclude": [
+        "**/R$*",
+        "**/R",
+        "gtpay/gtronicspay/c/App",
+        "gtpay/gtronicspay/c/databinding/**"
+    ],
+    "include": [],
+    "tasks": {
+        "references": {
+            "enabled": false,
+            "mode": "reflection",
+            "ignore_methods": false,
+            "ignore_fields": false,
+            "force_encrypt_unresolved": false
+        },
+        "strings": {
+            "enabled": true,
+            "mode": "compatibility",
+            "min_length": "0"
+        },
+        "flow": {
+            "enabled": false,
+            "heavy": false
+        },
+        "rename": {
+            "enabled": true,
+            "default_package": "b",
+            "keep_class_names": true,
+            "keep_local_vars": false,
+            "remove_serial_version_ids": false,
+            "rename_main_classes": false,
+            "exclude_enum_names": false
+        },
+        "scramble": {
+            "enabled": false
+        },
+        "cover-instantiation": {
+            "enabled": false
+        },
+        "numbers": {
+            "enabled": true
+        },
+        "shuffle": {
+            "enabled": false
+        },
+        "access-generalize": {
+            "enabled": false
+        },
+        "crash": {
+            "enabled": false,
+            "keep_class_debug": false,
+            "no_archive_crashing": false
+        },
+        "anti-debug": {
+            "enabled": true,
+            "check_noverify": false
+        },
+        "encrypt-stacktrace": {
+            "enabled": true,
+            "key": "3ZUWHNmdGZQrRiG6"
+        },
+        "debug-remover": {
+            "enabled": true,
+            "keep_stacktrace_info": false,
+            "remove_annotations": false,
+            "keep_local_vars": false,
+            "keep_signatures": false
+        },
+        "generify": {
+            "enabled": true,
+            "keep_fields": false,
+            "keep_methods": false,
+            "keep_int_types": false,
+            "no_extra_int_inherit": false
+        },
+        "trimmer": {
+            "enabled": false,
+            "remove_methods": false
+        }
+    }
+}
