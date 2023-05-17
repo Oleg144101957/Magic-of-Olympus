@@ -5,32 +5,128 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg3"
+    android:background="@drawable/mainbackground"
     tools:context=".screens.activities.GoldActivity">
 
-    <ImageView
-        android:id="@+id/btnBack"
-        android:layout_width="64dp"
-        android:layout_height="64dp"
-        android:src="@drawable/baseline_arrow_back_24"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:contentDescription="@string/button_back" />
 
-    <TextView
+    <ImageView
+        android:id="@+id/element16"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="monospace"
-        android:padding="16dp"
-        android:text="@string/select_good_combination_to_make_more_money"
-        android:textColor="#000000"
-        android:textSize="32sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:src="@drawable/element_16_939"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/element_10_939"
+        android:layout_marginStart="14dp"
+        app:layout_constraintStart_toStartOf="@id/element16"
+        app:layout_constraintBottom_toBottomOf="@id/element16"/>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/element_10_939"
+        android:layout_marginEnd="14dp"
+        app:layout_constraintBottom_toBottomOf="@id/element16"
+        app:layout_constraintEnd_toEndOf="@id/element16"/>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/verticalCenterGuideLine"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.5"/>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/verticalCenterGuideLineStart"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.25"/>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/verticalCenterGuideLineEnd"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.75"/>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/horizontalCenterGuideLine"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.75"/>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/horizontalCenterGuideLineTop"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.27" />
 
 
+    <ImageView
+        android:id="@+id/check"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:src="@drawable/element_14_939"
+        app:layout_constraintStart_toStartOf="@id/verticalCenterGuideLineStart"
+        app:layout_constraintEnd_toStartOf="@id/verticalCenterGuideLine"
+        app:layout_constraintTop_toBottomOf="@id/horizontalCenterGuideLine"/>
+
+    <ImageView
+        android:id="@+id/uncheck"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:src="@drawable/element_15_939"
+        app:layout_constraintStart_toEndOf="@id/verticalCenterGuideLine"
+        app:layout_constraintEnd_toStartOf="@id/verticalCenterGuideLineEnd"
+        app:layout_constraintTop_toBottomOf="@id/horizontalCenterGuideLine"/>
+
+
+    <ImageView
+        android:id="@+id/goldenSun"
+        android:layout_width="290dp"
+        android:layout_height="290dp"
+        android:src="@drawable/element_9_939"
+        android:adjustViewBounds="true"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/horizontalCenterGuideLine"/>
+
+    <ImageView
+        android:id="@+id/scorebackground"
+        android:layout_width="200dp"
+        android:layout_height="75dp"
+        android:src="@drawable/element_13_939"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/goldenSun"/>
+
+    <TextView
+        android:id="@+id/scoretextview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
+        android:textColor="@color/white"
+        android:text="@string/score_is_0"
+        app:layout_constraintStart_toStartOf="@id/scorebackground"
+        app:layout_constraintEnd_toEndOf="@id/scorebackground"
+        app:layout_constraintBottom_toBottomOf="@id/scorebackground"
+        app:layout_constraintTop_toTopOf="@id/scorebackground"/>
+
+    <ImageView
+        android:id="@+id/rotatingElement"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/element_5_939"
+        android:layout_marginStart="16dp"
+        app:layout_constraintStart_toStartOf="@id/element16"
+        app:layout_constraintBottom_toTopOf="@id/horizontalCenterGuideLineTop" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

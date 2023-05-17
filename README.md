@@ -2,8 +2,6 @@
 
 
 
-Before release:
-
-1. Change ADB status
-2. Make checklist
-3. Test
+2 branches
+main (new assets)
+old game

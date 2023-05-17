@@ -5,134 +5,29 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg1"
+    android:background="@drawable/mainbackground"
     tools:context=".screens.activities.GameActivity">
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/horizontalGuideLine"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintGuide_percent="0.15"
-        android:orientation="horizontal"/>
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/verticalGuideLineLeft"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintGuide_percent="0.15"
-        android:orientation="vertical"/>
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/verticalGuideLineRight"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintGuide_percent="0.85"
-        android:orientation="vertical"/>
-
     <ImageView
-        android:id="@+id/gold"
+        android:id="@+id/element7"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintEnd_toStartOf="@id/verticalGuideLineRight"
-        app:layout_constraintTop_toBottomOf="@id/horizontalGuideLine"
-        android:src="@drawable/gold"
-        android:contentDescription="@string/gold_button" />
-
-    <ImageView
-        android:id="@+id/x200"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/x200"
-        app:layout_constraintBottom_toTopOf="@id/horizontalGuideLine"
-        app:layout_constraintEnd_toEndOf="@id/verticalGuideLineRight"
-        android:contentDescription="@string/x200" />
-
-    <TextView
-        android:id="@+id/scoreTV"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/scrores"
-        android:textStyle="bold"
-        android:textSize="48sp"
-        android:textColor="@color/black"
+        android:src="@drawable/element_7_939"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/gridLayout"/>
-    <TextView
-        android:id="@+id/scoreMutableField"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textStyle="bold"
-        android:textSize="48sp"
-        android:textColor="@color/black"
-        app:layout_constraintStart_toEndOf="@id/scoreTV"
-        app:layout_constraintBottom_toTopOf="@id/gridLayout"/>
-
-
-    <GridLayout
-        android:id="@+id/gridLayout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:columnCount="3"
-        android:rowCount="2"
-        android:padding="64dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/btnPlay">
-
-        <ImageView
-            android:id="@+id/element1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/element_1_939"
-            android:contentDescription="@string/god" />
-
-        <ImageView
-            android:id="@+id/element2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/element_2_939"
-            android:contentDescription="@string/golden_plate" />
-
-        <ImageView
-            android:id="@+id/element3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/element_3_939"
-            android:contentDescription="@string/coin" />
-
-        <ImageView
-            android:id="@+id/element4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/element_4_939"
-            android:contentDescription="@string/golden_sun" />
-
-        <ImageView
-            android:id="@+id/element5"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/element_5_939"
-            android:contentDescription="@string/magic_element" />
-
-        <ImageView
-            android:id="@+id/element6"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/element_6_939"
-            android:contentDescription="@string/ring" />
-
-    </GridLayout>
+        app:layout_constraintBottom_toBottomOf="parent"/>
 
     <ImageView
-        android:id="@+id/btnPlay"
+        android:id="@+id/god"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/btn"
-        android:layout_marginBottom="24dp"
+        android:src="@drawable/element_8_939"
+        android:adjustViewBounds="true"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:contentDescription="@string/button_choose" />
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
