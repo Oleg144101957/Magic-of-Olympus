@@ -3,7 +3,7 @@
     "name_generation_mode": "ADAPTIVE",
     "exclude_libs": true,
     "no_compress": false,
-    "no_watermark": false,
+    "no_watermark": true,
     "remove_empty_directories": false,
     "exclude": [
         "**/R$*",
