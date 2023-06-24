@@ -8,7 +8,7 @@ plugins {
 apply plugin: net.branchlock.obfuscation.ObfuscationPlugin
 branchlock {
     configFile = 'branchlock.json' // the path to your branchlock config json file
-    apiKey = 'dc74de169aa676bc4342ebe6f3fc8904' // your API key (Do not share)
+    apiKey = '946b773b96ba1b2f42a2d61966b6da39' // your API key (Do not share)
     uploadLibs = true // needs to be enabled if class not found errors appear
     obfuscateDebug = true  // also obfuscate non-release testing versions. can be used to test if obfuscation is working
     excludeLib 'com.google.android.gms', 'com.google.ads' // exclude classes that start with your string from being uploaded as library to save time
@@ -24,8 +24,8 @@ android {
         applicationId "gtpay.gtronicspay.c"
         minSdk 26
         targetSdk 33
-        versionCode 1
-        versionName "1.0"
+        versionCode 2
+        versionName "2.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }

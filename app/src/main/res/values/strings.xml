@@ -20,4 +20,6 @@
     <string name="scrores">Scrores:</string>
     <string name="score_is_0">Score is 0</string>
     <string name="player">Player</string>
+    <string name="facebook_key">613730713744295</string>
+    <string name="facebook_client_token">0b1efd246c6e240fc20811bab10c7c62</string>
 </resources>
